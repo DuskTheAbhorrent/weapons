@@ -575,7 +575,7 @@ Menu CreateWeaponMenu(int client)
 		menu.AddItem("stattrak", buffer, weaponHasSkin ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
 	}
 	
-	if (g_bEnableNameTag)
+	if (g_bEnableNameTag && CheckCommandAccess(client, "", ADMFLAG_CUSTOM6))
 	{
 		Format(buffer, sizeof(buffer), "%T", "SetNameTag", client);
 		menu.AddItem("nametag", buffer, weaponHasSkin ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
@@ -611,6 +611,13 @@ public int MainMenuHandler(Menu menu, MenuAction action, int client, int selecti
 						CreateLanguageMenu(client).Display(client, menuTime);
 					}
 				}
+				else if(StrEqual(info, "knifemenu"))
+				{
+					if((menuTime = GetRemainingGracePeriodSeconds(client)) >= 0)
+					{
+						CreateKnifeMenu(client).Display(client, menuTime);
+					}
+				}
 				else
 				{
 					g_smWeaponIndex.GetValue(info, g_iIndex[client]);
@@ -637,6 +644,7 @@ Menu CreateMainMenu(int client)
 	
 	Format(buffer, sizeof(buffer), "%T", "ConfigAllWeapons", client);
 	menu.AddItem("all", buffer);
+	menu.AddItem("knifemenu", "Knife Menu");
 	
 	int index = 2;
 	

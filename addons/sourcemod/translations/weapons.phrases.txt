@@ -310,7 +310,7 @@
 	}
 	"NameTagNew"
 	{
-		"en"	"You can now use !ws menu to set name tag."
+		"en"	"You can now use !ws menu to set name tag if you are a Super VIP."
 	}
 	"GracePeriod"
 	{
